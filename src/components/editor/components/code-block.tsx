@@ -1,15 +1,15 @@
-import { NodeViewContent, NodeViewProps, NodeViewWrapper } from '@tiptap/react'
-import React, { useCallback, useEffect, useState } from 'react'
-import { Icon } from '../ui/icon'
+import { NodeViewContent, NodeViewProps, NodeViewWrapper } from '@tiptap/react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Icon } from '../ui/icon';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '../ui/dropdown-menu'
-import { findLanguage } from '../lib/code-block-language-loader'
+} from '../ui/dropdown-menu';
+import { findLanguage } from '../lib/code-block-language-loader';
 
-let copiedTimeout: any
+let copiedTimeout: any;
 
 const CodeBlock = ({
   node: { attrs, textContent },
@@ -17,29 +17,29 @@ const CodeBlock = ({
   extension,
   updateAttributes
 }: NodeViewProps) => {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
-  const languages = ['javascript', 'python', 'java', 'csharp']
+  const languages = ['javascript', 'python', 'java', 'csharp'];
 
   const onCopy = useCallback(() => {
-    setCopied(true)
+    setCopied(true);
 
-    navigator.clipboard.writeText(textContent)
+    navigator.clipboard.writeText(textContent);
 
     copiedTimeout = setTimeout(() => {
-      setCopied(false)
-    }, 2500)
-  }, [textContent])
+      setCopied(false);
+    }, 2500);
+  }, [textContent]);
 
   useEffect(() => {
     return () => {
-      clearTimeout(copiedTimeout)
-    }
-  }, [])
+      clearTimeout(copiedTimeout);
+    };
+  }, []);
 
-  const onLanguageSelect = (selectedLanguage) => {
-    updateAttributes({ language: selectedLanguage })
-  }
+  const onLanguageSelect = (selectedLanguage: string) => {
+    updateAttributes({ language: selectedLanguage });
+  };
 
   return (
     <NodeViewWrapper className='relative group'>
@@ -54,7 +54,6 @@ const CodeBlock = ({
         className='absolute top-2 right-4 h-8 flex items-center transition-all'
         contentEditable={false}
       >
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className='min-w-fit px-2 h-8 text-xs font-sans text-slate-300 flex items-center justify-center cursor-pointer'>
@@ -91,7 +90,7 @@ const CodeBlock = ({
         </button>
       </div>
     </NodeViewWrapper>
-  )
-}
+  );
+};
 
-export default CodeBlock
+export default CodeBlock;
